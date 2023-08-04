@@ -3,6 +3,36 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 ?>
-<p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Cool Faqs – hello from a dynamic block!', 'cool-faqs' ); ?>
-</p>
+<?php 
+
+$args = array(
+  'post_type' 		=> 'cool-faqs',
+  'posts_per_page'	=> '-1',
+  'order' => 'ASC',
+  'orderby' => 'ID'
+);
+
+$faqs = new WP_Query( $args );
+
+$show_faqs = '<div ' . get_block_wrapper_attributes() . '>';
+
+if ( $faqs->have_posts() ) {
+  
+  while ( $faqs->have_posts() ) {
+    $show_faqs .= '<details>';
+    $faqs->the_post();
+    $show_faqs .= '<summary>' . get_the_title() . '</summary>';
+    $show_faqs .= '<div class="faq-content">' . get_the_content() . '</div>';
+    $show_faqs .= '</details>';
+  }
+  
+}  else {
+  $show_faqs .= "No posts found.";
+}
+
+$show_faqs .= '</div>';
+
+wp_reset_postdata();
+echo $show_faqs;
+
+?>

@@ -86,7 +86,6 @@ add_action( 'init', 'cool_faqs_create_taxonomies' );
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-
 function create_block_cool_faqs_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
