@@ -12,6 +12,17 @@ $args = array(
   'orderby' => 'ID'
 );
 
+// check for category and add to query arguments ($args)
+if ( $attributes['category'] ) {
+  $args[ 'tax_query' ] = array(
+    array(
+      'taxonomy' => 'cool-faqs-cat',
+      'field'    => 'slug',
+      'terms'    => $attributes[ 'category' ]
+    )
+  );
+}
+
 $faqs = new WP_Query( $args );
 
 $show_faqs = '<div ' . get_block_wrapper_attributes() . '>';
