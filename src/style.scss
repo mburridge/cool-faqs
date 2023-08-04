@@ -6,7 +6,23 @@
  */
 
 .wp-block-create-block-cool-faqs {
-	background-color: #21759b;
-	color: #fff;
+	// background-color: #21759b;
+
 	padding: 2px;
+
+	& details {
+		background: #b3e1e7;
+		margin: 8px 0;
+
+		& summary {
+			padding: 6px;
+			color: #eee;
+			background: #206e79;
+		}
+
+		& .faq-content {
+			padding: 0 22px 6px;
+			color: #000;
+		}
+	}
 }
