@@ -22,6 +22,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import './editor.scss';
 
 import { useEntityRecords } from '@wordpress/core-data';
+import { Spinner } from '@wordpress/components';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -31,13 +32,19 @@ import { useEntityRecords } from '@wordpress/core-data';
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
-	const faqs = useEntityRecords( 'postType', 'cool-faqs' );
+
+function FaqList( { hasResolved, faqs } ) {
+	if ( ! hasResolved ) {
+		return <Spinner />;
+	}
+	if ( ! faqs.length ) {
+		return <>No FAQs found.</>;
+	}
 
 	return (
-		<div { ...useBlockProps() }>
-			{ faqs.records &&
-				faqs.records.map( ( faq ) => {
+		<>
+			{ faqs &&
+				faqs.map( ( faq ) => {
 					return (
 						<details key={ faq.id }>
 							<summary>{ faq.title.raw }</summary>
@@ -50,6 +57,16 @@ export default function Edit() {
 						</details>
 					);
 				} ) }
+		</>
+	);
+}
+
+export default function Edit() {
+	const faqs = useEntityRecords( 'postType', 'cool-faqs' );
+
+	return (
+		<div { ...useBlockProps() }>
+			<FaqList hasResolved={ faqs.hasResolved } faqs={ faqs.records } />
 		</div>
 	);
 }
