@@ -21,6 +21,8 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+import { useEntityRecords } from '@wordpress/core-data';
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -30,9 +32,24 @@ import './editor.scss';
  * @return {WPElement} Element to render.
  */
 export default function Edit() {
+	const faqs = useEntityRecords( 'postType', 'cool-faqs' );
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Cool Faqs – hello from the editor!', 'cool-faqs' ) }
-		</p>
+		<div { ...useBlockProps() }>
+			{ faqs.records &&
+				faqs.records.map( ( faq ) => {
+					return (
+						<details key={ faq.id }>
+							<summary>{ faq.title.raw }</summary>
+							<section
+								className="faq-content"
+								dangerouslySetInnerHTML={ {
+									__html: faq.content.raw,
+								} }
+							/>
+						</details>
+					);
+				} ) }
+		</div>
 	);
 }
