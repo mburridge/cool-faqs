@@ -43,6 +43,10 @@
     "answerBackgroundColor": {
       "type": "string",
       "default": "#c7e2e4"
+    },
+    "faqMargin": {
+      "type": "integer",
+      "default": 8
     }
   }
 }

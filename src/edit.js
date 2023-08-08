@@ -27,6 +27,7 @@ import './editor.scss';
 
 import { useEntityRecords } from '@wordpress/core-data';
 import { Spinner, PanelBody, SelectControl } from '@wordpress/components';
+import NumberControl from './components/number-control';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -72,6 +73,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		questionBackgroundColor,
 		answerTextColor,
 		answerBackgroundColor,
+		faqMargin,
 	} = attributes;
 
 	const faqStyles = {
@@ -79,6 +81,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		'--question-background-color': questionBackgroundColor,
 		'--answer-text-color': answerTextColor,
 		'--answer-background-color': answerBackgroundColor,
+		'--faq-margin': `${ faqMargin }px`,
 	};
 
 	const query = { order: 'asc', orderby: 'id' }; // see https://developer.wordpress.org/rest-api/reference/posts/ for possible arguments
@@ -107,6 +110,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( { answerTextColor: val } );
 	const onChangeAnswerBackgroundColor = ( val ) =>
 		setAttributes( { answerBackgroundColor: val } );
+	const onChangeFaqMargin = ( val ) =>
+		setAttributes( { faqMargin: Number( val ) } );
 
 	return (
 		<div { ...useBlockProps( { style: faqStyles } ) }>
@@ -157,6 +162,15 @@ export default function Edit( { attributes, setAttributes } ) {
 						},
 					] }
 				></PanelColorSettings>
+				<PanelBody>
+					<NumberControl
+						label="Margin"
+						value={ faqMargin }
+						onChange={ onChangeFaqMargin }
+						min={ 0 }
+						max={ 500 }
+					/>
+				</PanelBody>
 			</InspectorControls>
 			<FaqList hasResolved={ faqs.hasResolved } faqs={ faqs.records } />
 		</div>

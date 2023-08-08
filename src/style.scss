@@ -10,17 +10,25 @@
 
 	& details {
 		background-color: var(--answer-background-color);
-		margin: 8px 0;
+		margin: var(--faq-margin) 0;
 
 		& summary {
 			padding: 6px;
 			color: var(--question-text-color);
 			background: var(--question-background-color);
+			cursor: pointer;
 		}
 
 		& .faq-content {
-			padding: 0 22px 6px;
+			padding: 16px;
 			color: var(--answer-text-color);
+
+			& p {
+				margin: 0 0 10px;
+			}
+			& p:last-child {
+				margin-bottom: 0;
+			}
 		}
 	}
 }
