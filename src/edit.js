@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -22,7 +22,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import './editor.scss';
 
 import { useEntityRecords } from '@wordpress/core-data';
-import { Spinner } from '@wordpress/components';
+import { Spinner, PanelBody, SelectControl } from '@wordpress/components';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -61,7 +61,7 @@ function FaqList( { hasResolved, faqs } ) {
 	);
 }
 
-export default function Edit( { attributes } ) {
+export default function Edit( { attributes, setAttributes } ) {
 	const { category } = attributes;
 
 	const query = { order: 'asc', orderby: 'id' }; // see https://developer.wordpress.org/rest-api/reference/posts/ for possible arguments
@@ -70,8 +70,37 @@ export default function Edit( { attributes } ) {
 	}
 	const faqs = useEntityRecords( 'postType', 'cool-faqs', query );
 
+	const onChangeCat = ( val ) => setAttributes( { category: Number( val ) } );
+
 	return (
 		<div { ...useBlockProps() }>
+			<InspectorControls>
+				<PanelBody>
+					<SelectControl
+						label={ 'Category' }
+						onChange={ onChangeCat }
+						value={ category }
+						options={ [
+							{
+								label: 'All',
+								value: 0,
+							},
+							{
+								label: 'Mountains',
+								value: 3,
+							},
+							{
+								label: 'Oceans',
+								value: 4,
+							},
+							{
+								label: 'Space',
+								value: 5,
+							},
+						] }
+					/>
+				</PanelBody>
+			</InspectorControls>
 			<FaqList hasResolved={ faqs.hasResolved } faqs={ faqs.records } />
 		</div>
 	);
