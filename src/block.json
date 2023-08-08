@@ -31,6 +31,10 @@
     "questionTextColor": {
       "type": "string",
       "default": "#eeeeee"
+    },
+    "questionBackgroundColor": {
+      "type": "string",
+      "default": "#206e79"
     }
   }
 }

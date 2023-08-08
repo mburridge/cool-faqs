@@ -66,10 +66,11 @@ function FaqList( { hasResolved, faqs } ) {
 }
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { category, questionTextColor } = attributes;
+	const { category, questionTextColor, questionBackgroundColor } = attributes;
 
 	const faqStyles = {
 		'--question-text-color': questionTextColor,
+		'--question-background-color': questionBackgroundColor,
 	};
 
 	const query = { order: 'asc', orderby: 'id' }; // see https://developer.wordpress.org/rest-api/reference/posts/ for possible arguments
@@ -88,9 +89,12 @@ export default function Edit( { attributes, setAttributes } ) {
 			};
 		} );
 
+	// onChange functions
 	const onChangeCat = ( val ) => setAttributes( { category: Number( val ) } );
 	const onChangeQuestionTextColor = ( val ) =>
 		setAttributes( { questionTextColor: val } );
+	const onChangeQuestionBackgroundColor = ( val ) =>
+		setAttributes( { questionBackgroundColor: val } );
 
 	return (
 		<div { ...useBlockProps( { style: faqStyles } ) }>
@@ -118,6 +122,11 @@ export default function Edit( { attributes, setAttributes } ) {
 							label: 'Text',
 							value: questionTextColor,
 							onChange: onChangeQuestionTextColor,
+						},
+						{
+							label: 'Background',
+							value: questionBackgroundColor,
+							onChange: onChangeQuestionBackgroundColor,
 						},
 					] }
 				></PanelColorSettings>
