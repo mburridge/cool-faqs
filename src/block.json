@@ -8,7 +8,15 @@
   "icon": "smiley",
   "description": "Example block scaffolded with Create Block tool.",
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "background": true,
+      "text": false
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "textdomain": "cool-faqs",
   "editorScript": "file:./index.js",
