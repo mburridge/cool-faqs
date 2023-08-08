@@ -10,14 +10,14 @@ $args = array(
   'posts_per_page'	=> '-1',
   'order' => 'ASC',
   'orderby' => 'ID'
-);
+); // see https://developer.wordpress.org/reference/classes/wp_query/ for possible arguments
 
 // check for category and add to query arguments ($args)
 if ( $attributes['category'] ) {
   $args[ 'tax_query' ] = array(
     array(
       'taxonomy' => 'cool-faqs-cat',
-      'field'    => 'slug',
+      'field'    => 'id',
       'terms'    => $attributes[ 'category' ]
     )
   );
@@ -38,7 +38,7 @@ if ( $faqs->have_posts() ) {
   }
   
 }  else {
-  $show_faqs .= "No posts found.";
+  $show_faqs .= "No FAQs found.";
 }
 
 $show_faqs .= '</div>';

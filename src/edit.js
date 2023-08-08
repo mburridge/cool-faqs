@@ -61,8 +61,14 @@ function FaqList( { hasResolved, faqs } ) {
 	);
 }
 
-export default function Edit() {
-	const faqs = useEntityRecords( 'postType', 'cool-faqs' );
+export default function Edit( { attributes } ) {
+	const { category } = attributes;
+
+	const query = { order: 'asc', orderby: 'id' }; // see https://developer.wordpress.org/rest-api/reference/posts/ for possible arguments
+	if ( category ) {
+		query[ 'cool-faqs-cat' ] = category;
+	}
+	const faqs = useEntityRecords( 'postType', 'cool-faqs', query );
 
 	return (
 		<div { ...useBlockProps() }>

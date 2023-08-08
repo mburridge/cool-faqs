@@ -18,8 +18,8 @@
   "viewScript": "file:./view.js",
   "attributes": {
     "category": {
-      "type": "string",
-      "default": "mountains"
+      "type": "integer",
+      "default": 3
     }
   }
 }
