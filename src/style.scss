@@ -9,7 +9,7 @@
 	padding: 2px;
 
 	& details {
-		background: #b3e1e7;
+		background-color: var(--answer-background-color);
 		margin: 8px 0;
 
 		& summary {
@@ -20,7 +20,7 @@
 
 		& .faq-content {
 			padding: 0 22px 6px;
-			color: #000;
+			color: var(--answer-text-color);
 		}
 	}
 }

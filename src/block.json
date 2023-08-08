@@ -35,6 +35,14 @@
     "questionBackgroundColor": {
       "type": "string",
       "default": "#206e79"
+    },
+    "answerTextColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "answerBackgroundColor": {
+      "type": "string",
+      "default": "#c7e2e4"
     }
   }
 }

@@ -66,11 +66,19 @@ function FaqList( { hasResolved, faqs } ) {
 }
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { category, questionTextColor, questionBackgroundColor } = attributes;
+	const {
+		category,
+		questionTextColor,
+		questionBackgroundColor,
+		answerTextColor,
+		answerBackgroundColor,
+	} = attributes;
 
 	const faqStyles = {
 		'--question-text-color': questionTextColor,
 		'--question-background-color': questionBackgroundColor,
+		'--answer-text-color': answerTextColor,
+		'--answer-background-color': answerBackgroundColor,
 	};
 
 	const query = { order: 'asc', orderby: 'id' }; // see https://developer.wordpress.org/rest-api/reference/posts/ for possible arguments
@@ -95,6 +103,10 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( { questionTextColor: val } );
 	const onChangeQuestionBackgroundColor = ( val ) =>
 		setAttributes( { questionBackgroundColor: val } );
+	const onChangeAnswerTextColor = ( val ) =>
+		setAttributes( { answerTextColor: val } );
+	const onChangeAnswerBackgroundColor = ( val ) =>
+		setAttributes( { answerBackgroundColor: val } );
 
 	return (
 		<div { ...useBlockProps( { style: faqStyles } ) }>
@@ -127,6 +139,21 @@ export default function Edit( { attributes, setAttributes } ) {
 							label: 'Background',
 							value: questionBackgroundColor,
 							onChange: onChangeQuestionBackgroundColor,
+						},
+					] }
+				></PanelColorSettings>
+				<PanelColorSettings
+					title="Answer colours"
+					colorSettings={ [
+						{
+							label: 'Text',
+							value: answerTextColor,
+							onChange: onChangeAnswerTextColor,
+						},
+						{
+							label: 'Background',
+							value: answerBackgroundColor,
+							onChange: onChangeAnswerBackgroundColor,
 						},
 					] }
 				></PanelColorSettings>

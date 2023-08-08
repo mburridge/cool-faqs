@@ -27,6 +27,8 @@ $faqs = new WP_Query( $args );
 
 $faq_styles = "--question-text-color: " . $attributes["questionTextColor"] . ";";
 $faq_styles .= "; --question-background-color: " . $attributes["questionBackgroundColor"] . ";";
+$faq_styles .= "; --answer-text-color: " . $attributes["answerTextColor"] . ";";
+$faq_styles .= "; --answer-background-color: " . $attributes["answerBackgroundColor"] . ";";
 
 $show_faqs = '<div ' . get_block_wrapper_attributes( array( "style" =>  $faq_styles  ) ) . '>';
 
