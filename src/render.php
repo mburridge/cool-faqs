@@ -25,7 +25,9 @@ if ( $attributes['category'] ) {
 
 $faqs = new WP_Query( $args );
 
-$show_faqs = '<div ' . get_block_wrapper_attributes() . '>';
+$faq_styles = "--question-text-color: " . $attributes["questionTextColor"] . ";";
+
+$show_faqs = '<div ' . get_block_wrapper_attributes( array( "style" =>  $faq_styles  ) ) . '>';
 
 if ( $faqs->have_posts() ) {
   
