@@ -70,35 +70,36 @@ export default function Edit( { attributes, setAttributes } ) {
 	}
 	const faqs = useEntityRecords( 'postType', 'cool-faqs', query );
 
+	const cats = useEntityRecords( 'taxonomy', 'cool-faqs-cat' );
+	const options =
+		cats.records &&
+		cats.records.map( ( cat ) => {
+			return {
+				label: cat.name,
+				value: cat.id,
+			};
+		} );
+
 	const onChangeCat = ( val ) => setAttributes( { category: Number( val ) } );
 
 	return (
 		<div { ...useBlockProps() }>
 			<InspectorControls>
 				<PanelBody>
-					<SelectControl
-						label={ 'Category' }
-						onChange={ onChangeCat }
-						value={ category }
-						options={ [
-							{
-								label: 'All',
-								value: 0,
-							},
-							{
-								label: 'Mountains',
-								value: 3,
-							},
-							{
-								label: 'Oceans',
-								value: 4,
-							},
-							{
-								label: 'Space',
-								value: 5,
-							},
-						] }
-					/>
+					{ cats.hasResolved && (
+						<SelectControl
+							label={ 'Category' }
+							onChange={ onChangeCat }
+							value={ category }
+							options={ [
+								{
+									label: 'All',
+									value: 0,
+								},
+								...options,
+							] }
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 			<FaqList hasResolved={ faqs.hasResolved } faqs={ faqs.records } />
