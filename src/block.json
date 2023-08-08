@@ -27,6 +27,10 @@
   "attributes": {
     "category": {
       "type": "integer"
+    },
+    "questionTextColor": {
+      "type": "string",
+      "default": "#eeeeee"
     }
   }
 }

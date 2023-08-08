@@ -11,7 +11,11 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	InspectorControls,
+	PanelColorSettings,
+} from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -62,7 +66,11 @@ function FaqList( { hasResolved, faqs } ) {
 }
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { category } = attributes;
+	const { category, questionTextColor } = attributes;
+
+	const faqStyles = {
+		'--question-text-color': questionTextColor,
+	};
 
 	const query = { order: 'asc', orderby: 'id' }; // see https://developer.wordpress.org/rest-api/reference/posts/ for possible arguments
 	if ( category ) {
@@ -81,9 +89,11 @@ export default function Edit( { attributes, setAttributes } ) {
 		} );
 
 	const onChangeCat = ( val ) => setAttributes( { category: Number( val ) } );
+	const onChangeQuestionTextColor = ( val ) =>
+		setAttributes( { questionTextColor: val } );
 
 	return (
-		<div { ...useBlockProps() }>
+		<div { ...useBlockProps( { style: faqStyles } ) }>
 			<InspectorControls>
 				<PanelBody>
 					{ cats.hasResolved && (
@@ -101,6 +111,16 @@ export default function Edit( { attributes, setAttributes } ) {
 						/>
 					) }
 				</PanelBody>
+				<PanelColorSettings
+					title="Question colours"
+					colorSettings={ [
+						{
+							label: 'Text',
+							value: questionTextColor,
+							onChange: onChangeQuestionTextColor,
+						},
+					] }
+				></PanelColorSettings>
 			</InspectorControls>
 			<FaqList hasResolved={ faqs.hasResolved } faqs={ faqs.records } />
 		</div>
