@@ -132,37 +132,41 @@ export default function Edit( { attributes, setAttributes } ) {
 						/>
 					) }
 				</PanelBody>
-				<PanelColorSettings
-					title="Question colours"
-					colorSettings={ [
-						{
-							label: 'Text',
-							value: questionTextColor,
-							onChange: onChangeQuestionTextColor,
-						},
-						{
-							label: 'Background',
-							value: questionBackgroundColor,
-							onChange: onChangeQuestionBackgroundColor,
-						},
-					] }
-				></PanelColorSettings>
-				<PanelColorSettings
-					title="Answer colours"
-					colorSettings={ [
-						{
-							label: 'Text',
-							value: answerTextColor,
-							onChange: onChangeAnswerTextColor,
-						},
-						{
-							label: 'Background',
-							value: answerBackgroundColor,
-							onChange: onChangeAnswerBackgroundColor,
-						},
-					] }
-				></PanelColorSettings>
-				<PanelBody>
+			</InspectorControls>
+			<InspectorControls group="styles">
+				<PanelBody title="FAQ colors" initialOpen={ false }>
+					<PanelColorSettings
+						title="Question colours"
+						colorSettings={ [
+							{
+								label: 'Text',
+								value: questionTextColor,
+								onChange: onChangeQuestionTextColor,
+							},
+							{
+								label: 'Background',
+								value: questionBackgroundColor,
+								onChange: onChangeQuestionBackgroundColor,
+							},
+						] }
+					></PanelColorSettings>
+					<PanelColorSettings
+						title="Answer colours"
+						colorSettings={ [
+							{
+								label: 'Text',
+								value: answerTextColor,
+								onChange: onChangeAnswerTextColor,
+							},
+							{
+								label: 'Background',
+								value: answerBackgroundColor,
+								onChange: onChangeAnswerBackgroundColor,
+							},
+						] }
+					></PanelColorSettings>
+				</PanelBody>
+				<PanelBody title="Space between FAQs">
 					<NumberControl
 						label="Margin"
 						value={ faqMargin }
