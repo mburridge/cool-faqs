@@ -224,6 +224,11 @@ export default function Edit( { attributes, setAttributes } ) {
 					)
 				) }
 			</InspectorControls>
+			<h4>
+				Category:
+				{ cats.records &&
+					cats.records.find( ( cat ) => cat.id === category ).name }
+			</h4>
 			<FaqList hasResolved={ faqs.hasResolved } faqs={ faqs.records } />
 		</div>
 	);
