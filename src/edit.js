@@ -15,6 +15,8 @@ import {
 	useBlockProps,
 	InspectorControls,
 	PanelColorSettings,
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 
 /**
@@ -113,6 +115,22 @@ export default function Edit( { attributes, setAttributes } ) {
 	const onChangeFaqMargin = ( val ) =>
 		setAttributes( { faqMargin: Number( val ) } );
 
+	const colorSettings = [
+		{
+			colorLabel: __( 'My color', 'icon-block' ),
+			colorValue: questionTextColor,
+			onChange: ( val ) => {
+				setAttributes( {
+					questionTextColor: val,
+				} );
+			},
+			resetAllFilter: () => {
+				setAttributes( { questionTextColor: undefined } );
+			},
+		},
+	];
+	const colorGradientSettings = useMultipleOriginColorsAndGradients();
+
 	return (
 		<div { ...useBlockProps( { style: faqStyles } ) }>
 			<InspectorControls>
@@ -175,6 +193,36 @@ export default function Edit( { attributes, setAttributes } ) {
 						max={ 500 }
 					/>
 				</PanelBody>
+			</InspectorControls>
+			<InspectorControls group="color">
+				{ colorSettings.map(
+					( {
+						colorLabel,
+						colorValue,
+						colorGradientValue,
+						onChange,
+						onGradientChange,
+						resetAllFilter,
+					} ) => (
+						<ColorGradientSettingsDropdown
+							key={ `icon-block-color-` }
+							__experimentalIsRenderedInSidebar
+							settings={ [
+								{
+									label: colorLabel,
+									colorValue,
+									gradientValue: colorGradientValue,
+									onColorChange: onChange,
+									onGradientChange,
+									isShownByDefault: true,
+									resetAllFilter,
+									enableAlpha: true,
+								},
+							] }
+							{ ...colorGradientSettings }
+						/>
+					)
+				) }
 			</InspectorControls>
 			<FaqList hasResolved={ faqs.hasResolved } faqs={ faqs.records } />
 		</div>
