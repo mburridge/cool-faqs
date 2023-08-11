@@ -117,7 +117,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const colorSettings = [
 		{
-			colorLabel: __( 'My color', 'icon-block' ),
+			colorLabel: 'My color',
 			colorValue: questionTextColor,
 			onChange: ( val ) => {
 				setAttributes( {
@@ -205,7 +205,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						resetAllFilter,
 					} ) => (
 						<ColorGradientSettingsDropdown
-							key={ `icon-block-color-` }
+							key={ `icon-block-color-{category}` }
 							__experimentalIsRenderedInSidebar
 							settings={ [
 								{
