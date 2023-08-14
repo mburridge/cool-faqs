@@ -68,7 +68,7 @@ function FaqList( { hasResolved, faqs } ) {
 	);
 }
 
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit( { attributes, setAttributes, clientId } ) {
 	const {
 		category,
 		questionTextColor,
@@ -115,20 +115,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const onChangeFaqMargin = ( val ) =>
 		setAttributes( { faqMargin: Number( val ) } );
 
-	const colorSettings = [
-		{
-			colorLabel: 'My color',
-			colorValue: questionTextColor,
-			onChange: ( val ) => {
-				setAttributes( {
-					questionTextColor: val,
-				} );
-			},
-			resetAllFilter: () => {
-				setAttributes( { questionTextColor: undefined } );
-			},
-		},
-	];
+	const colorSettings = [];
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
 	return (
@@ -195,34 +182,29 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 			</InspectorControls>
 			<InspectorControls group="color">
-				{ colorSettings.map(
-					( {
-						colorLabel,
-						colorValue,
-						colorGradientValue,
-						onChange,
-						onGradientChange,
-						resetAllFilter,
-					} ) => (
-						<ColorGradientSettingsDropdown
-							key={ `icon-block-color-{category}` }
-							__experimentalIsRenderedInSidebar
-							settings={ [
-								{
-									label: colorLabel,
-									colorValue,
-									gradientValue: colorGradientValue,
-									onColorChange: onChange,
-									onGradientChange,
-									isShownByDefault: true,
-									resetAllFilter,
-									enableAlpha: true,
-								},
-							] }
-							{ ...colorGradientSettings }
-						/>
-					)
-				) }
+				{ /*
+        see: https://github.com/ndiego/icon-block/pull/35/files
+        and: https://github.com/WordPress/gutenberg/blob/trunk/packages/block-library/src/social-links/edit.js
+        for more than one, create an array of settings options and map over them
+       */ }
+				<ColorGradientSettingsDropdown
+					__experimentalIsRenderedInSidebar
+					settings={ [
+						{
+							label: 'Question colour',
+							colorValue: questionTextColor,
+							onColorChange: onChangeQuestionTextColor,
+							isShownByDefault: true,
+							resetAllFilter: () => {
+								setAttributes( {
+									questionTextColor: undefined,
+								} );
+							},
+						},
+					] }
+					panelId={ clientId }
+					{ ...colorGradientSettings }
+				/>
 			</InspectorControls>
 			<h4>
 				Category:
